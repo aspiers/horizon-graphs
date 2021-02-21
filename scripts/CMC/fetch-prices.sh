@@ -3,7 +3,7 @@
 symbols=BTC,ETH,ADA,DOT
 mode=sandbox
 
-datadir=$(dirname $0)/../../data/CMC
+datadir=$(dirname $0)/../../data/CMC/$mode
 
 die () {
     echo >&2 "$@"
@@ -29,8 +29,6 @@ init_vars () {
             die "Huh"
             ;;
     esac
-
-    datadir=data/$mode
 }
 
 api_fetch () {
@@ -63,10 +61,11 @@ main () {
     if ! api_fetch > $raw; then
         die "API fetch failed; aborting"
     fi
+    echo "Wrote to $raw"
 
     out=$datadir/prices.json
     if munge < $raw > $out; then
-        echo "Downloaded symbols:"
+        echo "Downloaded symbols to $out:"
         jq '. | map(.symbol)' $out
     fi
 }

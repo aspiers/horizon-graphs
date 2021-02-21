@@ -1,6 +1,6 @@
 var context, horizon;
 
-d3.json("data/sandbox/prices.json").then(
+d3.json("data/CMC/sandbox/prices.json").then(
   function(data) {
     let coins = data.map(function(coin) {
       let firstPrice = coin.quotes[0].price;

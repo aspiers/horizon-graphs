@@ -3,13 +3,15 @@
 # use find-symbol.sh
 coins=(
     btc-bitcoin eth-ethereum ada-cardano dot-polkadot
+    torn-tornado-cash
 )
 
 start="2021-01-20T00:00:00Z"
 end="2021-02-20T00:00:00Z"
 interval=1h
 
-datadir=$(dirname $0)/../data
+datadir=$(dirname $0)/../../data/coinpaprika
+mkdir -p $datadir
 
 fetch_coin () {
     coin_id=$1
@@ -18,9 +20,8 @@ fetch_coin () {
     params="quote=usd;start=$start;end=$end;limit=366;interval=$interval"
 
     # https://api.coinpaprika.com/#tag/Coins/paths/~1coins~1{coin_id}~1ohlcv~1historical/get
-    curl -s \
-         -H "Accept: application/json" \
-         -G "$endpoint?$params"
+    echo >&2 curl -s "$endpoint?$params"
+    curl -s "$endpoint?$params"
 }
 
 munge () {

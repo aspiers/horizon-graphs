@@ -3,6 +3,8 @@
 symbols=BTC,ETH,ADA,DOT
 mode=sandbox
 
+datadir=$(dirname $0)/../../data/CMC
+
 die () {
     echo >&2 "$@"
     exit 1

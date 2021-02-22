@@ -192,28 +192,30 @@ function metric_for_coin(context, coin_id, symbol, ref_data) {
 async function populate_metric_data(coin_id, symbol, ref_data,
                                     callback) {
     let data = await fetch_coin_data(coin_id, symbol);
-    let prices = aligned_prices(coin_id, symbol, data, ref_data);
+    let prices = aligned_metric_data(coin_id, symbol, data, ref_data);
     callback(null, prices.slice(-context.size()));
 }
 
-function aligned_prices(coin_id, symbol, data, ref_data) {
-    let prices = [];
+function aligned_metric_data(coin_id, symbol, data, ref_data) {
+    let changes = [];
     for (let i = 0; ref_data[i].timestamp < data[0].timestamp; i++) {
-        prices.push(0);
+        changes.push(0);
     }
-    if (prices.length > 0) {
+    if (changes.length > 0) {
         console.debug(
             `${symbol} started at ${data[0].timestamp} ` +
                 `after ${ref_data[0].timestamp}; ` +
-                `inserted ${prices.length} blanks to align ${symbol}`
+                `inserted ${changes.length} blanks to align ${symbol}`
         );
     }
 
     let firstPrice = data[0].price;
     data.forEach(function(d) {
-        prices.push((d.price - firstPrice) / firstPrice);
+        // Calculate fraction gain on original price
+        let change = (d.price - firstPrice) / firstPrice;
+        changes.push(change);
     });
-    return prices;
+    return changes;
 }
 
 async function main() {

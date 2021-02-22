@@ -199,7 +199,7 @@ async function populate_metric_data(coin_id, symbol, ref_data,
 function aligned_prices(coin_id, symbol, data, ref_data) {
     let prices = [];
     for (let i = 0; ref_data[i].timestamp < data[0].timestamp; i++) {
-        prices.push(null);
+        prices.push(0);
     }
     if (prices.length > 0) {
         console.debug(

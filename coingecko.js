@@ -144,7 +144,7 @@ function setup_horizon(context) {
     // https://github.com/square/cubism/wiki/Horizon
     // https://github.com/BigFatDog/cubism-es#api-breaks-v110
     // https://github.com/d3/d3-format/blob/v2.0.0/README.md#format
-    let horizon = context.horizon();
+    horizon = context.horizon();
     horizon
         .format(d3.format("+,.2p"))
         // .scale(784)

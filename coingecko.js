@@ -193,6 +193,12 @@ async function populate_metric_data(coin_id, symbol, ref_data,
                                     callback) {
     let data = await fetch_coin_data(coin_id, symbol);
     let prices = aligned_metric_data(coin_id, symbol, data, ref_data);
+    if (prices.length > context.size()) {
+        console.warn(
+            `Got ${prices.length} prices for ${symbol} ` +
+                `but context size was only ${context.size()}`
+        );
+    }
     callback(null, prices.slice(-context.size()));
 }
 

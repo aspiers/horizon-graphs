@@ -149,6 +149,7 @@ function setup_horizon(context) {
         .format(d3.format("+,.2p"))
         // .scale(784)
         .colors(['#b30000', '#c64040', '#d98080', '#ecbfbf', '#bae4b3', '#74c476', '#31a354', '#006d2c'])
+        .extent([-0.5, 12])
         .render(
             d3.selectAll(".horizon")
         );

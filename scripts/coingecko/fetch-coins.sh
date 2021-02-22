@@ -67,8 +67,9 @@ coins=(
     shopping-io
 )
 
-start="2021-01-20T00:00:00Z"
-end="2021-02-20T00:00:00Z"
+start="2021-01-01T00:00:00Z"
+#end="2021-02-22T20:00:00Z"
+end=$(date -Iseconds --utc | sed 's/+00:00$/Z/')
 epoch_start=$(date +%s -d "$start")
 epoch_end=$(date +%s -d "$end")
 interval=1h
